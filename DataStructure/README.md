@@ -1,6 +1,6 @@
-##Usage
+## Usage
 
-##Proposed Order
+##P roposed Order
 1. Array: 1945
 2. Stack: 1946
 3. Queue: -
