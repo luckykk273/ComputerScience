@@ -55,6 +55,8 @@ if __name__ == '__main__':
 ## Reference
 [Big O cheat sheet](https://www.bigocheatsheet.com/): Contained common data structures and their complexities  
 [Open Data Structures](https://opendatastructures.org/): Illustrate the detailed theories and their implementations of data structures
+[Sorting Algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm): Basic introduction of the sorting algorithm
+
 ## Contact
 Welcome to contact me for any further question, below is my gmail address:
 * luckykk273@gmail.com
