@@ -1,3 +1,5 @@
+import random
+
 from SortingAlgorithm.utils import create_array
 
 
@@ -9,7 +11,7 @@ def quick_sort(arr: list):
         return arr
 
     smaller, equal, larger = [], [], []  # Using another memory here
-    pivot = arr[randint(0, length-1)]  # Pick up a randomized value be the pivot to avoid worst case
+    pivot = arr[random.randint(0, length-1)]  # Pick up a randomized value be the pivot to avoid worst case
 
     for e in arr:
         if e < pivot:
