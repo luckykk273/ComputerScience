@@ -241,14 +241,14 @@ class BTree:
         elif len(node.children[i].keys) >= b:  # If the size of the children is greater than the order, recursively call the delete function with its children
             self.delete(node.children[i], key)
         else:
-            if i != 0 and (i + 2) < len(node.children):  # The index has been moved
-                if len(node.children[i-1].keys) >= b:
+            if i != 0 and (i + 2) < len(node.children):
+                if len(node.children[i-1].keys) >= b:  # If the left sibling node is full
                     BTree._delete_sibling(node, i, i-1)
-                elif len(node.children[i+1].keys) >= b:
+                elif len(node.children[i+1].keys) >= b:  # If the right sibling node is full
                     BTree._delete_sibling(node, i, i-1)
-                else:
+                else:  # If both left and right sibling node are not full, default merge the node and its right sibling node
                     self._delete_merge(node, i, i+1)
-            elif i == 0:  # The index hasn't been moved(just at the beginning)
+            elif i == 0:
                 if len(node.children[i+1].keys) >= b:
                     BTree._delete_sibling(node, i, i+1)
                 else:
