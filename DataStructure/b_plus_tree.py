@@ -24,16 +24,16 @@ class BPlusTree:
 
         while node_list:
             node = node_list.pop(0)
-            level = level_list.pop(0)
+            del level_list[0]
             if node.is_leaf:
-                for k, v in enumerate(node.keys):
-                    str_buff += str(v.values) + '\n'
+                for idx, item in enumerate(node.keys):
+                    str_buff += str(item.values) + '\n'
 
                 if not flag:
                     flag = 1
             else:
-                for k, v in enumerate(node.keys):
-                    str_buff += str(v.values) + '\n'
+                for idx, item in enumerate(node.keys):
+                    str_buff += str(item.values) + '\n'
 
         return str_buff
 
@@ -134,14 +134,154 @@ class BPlusTree:
 
     def search(self, key, value):
         leaf = self._search(value)
-        for k, v in enumerate(leaf.values):
-            if v == value:
-                if key in leaf.keys[k]:
+        for idx, item in enumerate(leaf.values):
+            if item == value:
+                if key in leaf.keys[idx]:
                     return True
                 else:
                     return False
 
         return False
+
+    def _delete_entry(self, node, key, value):
+        if not node.is_leaf:
+            for idx, item in enumerate(node.keys):
+                if item == key:
+                    del node.keys[idx]
+                    break
+            for idx, item in enumerate(node.values):
+                if item == value:
+                    del node.values[idx]
+                    break
+
+        if node == self.root and len(node.keys) == 1:
+            self.root = node.keys[0]
+            node.keys[0].parent = None
+            del node
+            return
+        elif (len(node.keys) < int(ceil(node.order/2)) and not node.is_leaf) or \
+                (len(node.values) < int(ceil((node.order-1)/2)) and node.is_leaf):
+            is_predecessor = False
+            parent_node = node.parent
+            prev_node = None
+            next_node = None
+            prev_value = -1
+            post_value = -1
+            for idx, item in enumerate(parent_node.keys):
+                if item == node:
+                    if idx > 0:
+                        prev_node = parent_node.keys[idx-1]
+                        prev_value = parent_node.values[idx-1]
+                    if idx < len(parent_node.keys) - 1:
+                        next_node = parent_node.keys[idx+1]
+                        post_value = parent_node.values[idx]
+
+            if prev_node is None:
+                new_node = next_node
+                new_value = post_value
+            elif next_node is None:
+                is_predecessor = True
+                new_node = prev_node
+                new_value = prev_value
+            else:
+                if len(node.values) + len(next_node.values) < node.order:
+                    new_node = next_node
+                    new_value = post_value
+                else:
+                    is_predecessor = True
+                    new_node = prev_node
+                    new_value = prev_value
+
+            if len(node.values) + len(new_node.values) < node.order:
+                if not is_predecessor:
+                    node, new_node = new_node, node
+
+                new_node.keys += node.keys
+
+                if not node.is_leaf:
+                    new_node.values.append(new_value)
+                else:
+                    new_node.next_key = node.next_key
+
+                new_node.values += node.values
+
+                if not new_node.is_leaf:
+                    for key in new_node.keys:
+                        key.parent = new_node
+
+                self._delete_entry(node.parent, node, new_value)
+                del node
+            else:
+                if is_predecessor:
+                    if not node.is_leaf:
+                        new_node_pop_key = new_node.keys.pop(-1)
+                        new_node_pop_value = new_node.values.pop(-1)
+                        node.keys = [new_node_pop_key] + node.keys
+                        node.values = [new_value] + node.values
+                        parent_node = node.parent
+                        for idx, item in enumerate(parent_node.values):
+                            if item == new_value:
+                                parent_node.values[idx] = new_node_pop_value
+                                break
+                    else:
+                        new_node_pop_key = new_node.keys.pop(-1)
+                        new_node_pop_value = new_node.values.pop(-1)
+                        node.keys = [new_node_pop_key] + node.keys
+                        node.values = [new_node_pop_value] + node.values
+                        parent_node = node.parent
+                        for idx, item in enumerate(parent_node.values):
+                            if item == new_value:
+                                parent_node.values[idx] = new_node_pop_value
+                                break
+                else:
+                    new_node_pop_key = new_node.keys.pop(0)
+                    new_node_pop_value = new_node.values.pop(0)
+                    if not node.is_leaf:
+                        node.keys = node.keys + [new_node_pop_key]
+                        node.values = node.values + [new_value]
+                        parent_node = node.parent
+                        for idx, item in enumerate(parent_node.values):
+                            if item == new_value:
+                                parent_node.values[idx] = new_node_pop_value
+                                break
+                    else:
+                        node.keys = node.keys + [new_node_pop_key]
+                        node.values = node.values + [new_node_pop_value]
+                        parent_node = node.parent
+                        for idx, item in enumerate(parent_node.values):
+                            if item == new_value:
+                                parent_node.values[idx] = new_node.values[0]
+                                break
+
+                if not new_node.is_leaf:
+                    for key in new_node.keys:
+                        key.parent = new_node
+
+                if not node.is_leaf:
+                    for key in node.keys:
+                        key.parent = node
+
+                if not parent_node.is_leaf:
+                    for key in parent_node.keys:
+                        key.parent = parent_node
+
+    def delete(self, key, value):
+        node = self._search(value)
+        for idx, item in enumerate(node.values):
+            if item == value:
+                if key in node.keys[idx]:
+                    if len(node.keys[idx]) > 1:
+                        del node.keys[idx][node.keys[idx].index(key)]
+                    elif node == self.root:
+                        del node.values[idx]
+                        del node.keys[idx]
+                    else:
+                        del node.keys[idx][node.keys[idx].index(key)]
+                        del node.keys[idx]
+                        del node.values[node.values.index(value)]
+                        self._delete_entry(node, key, value)
+                else:
+                    return
 
 
 def initialize_tree(order):
@@ -157,5 +297,7 @@ def initialize_tree(order):
 
 if __name__ == '__main__':
     b_plus_tree = initialize_tree(3)
+    print(b_plus_tree)
     print(b_plus_tree.search('21', '15'))
+    b_plus_tree.delete('33', '5')
     print(b_plus_tree)
