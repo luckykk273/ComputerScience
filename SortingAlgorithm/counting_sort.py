@@ -11,7 +11,7 @@ def counting_sort(arr):
     for e in arr:
         auxiliary_arr[e-minimum] += 1
 
-    # Third cumulate all count number
+    # Third accumulate all count number
     # (Start from the first element in the auxiliary array)
     for i in range(1, len(auxiliary_arr)):
         auxiliary_arr[i] += auxiliary_arr[i-1]
