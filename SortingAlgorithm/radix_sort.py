@@ -27,16 +27,15 @@ def counting_sort(arr, digit):
 def radix_sort(arr):
     maximum = max(arr)
     digit = 1
-    while digit < maximum:
+    while maximum // digit > 0:
         counting_sort(arr, digit)
         digit *= 10
 
 
 if __name__ == '__main__':
-    # arr = create_array(100)
-    # # Here we only fulfill the non negative integer version, so we have to filter the negative number
-    # arr = list(filter(lambda x: x > 0, arr))
-    arr = [100, 45, 1]
+    arr = create_array(100)
+    # Here we only fulfill the non negative integer version, so we have to filter the negative number
+    arr = list(filter(lambda x: x > 0, arr))
     print('Unsorted array:', arr)
     radix_sort(arr)
     print('Sorted array:', arr)
