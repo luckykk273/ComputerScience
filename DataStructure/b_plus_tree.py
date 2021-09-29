@@ -79,18 +79,19 @@ class BPlusTree:
                     mid = int(ceil(parent_node.order/2)) - 1
                     new_parent_node.values = parent_node.values[mid+1:]
                     new_parent_node.keys = parent_node.keys[mid+1:]
+                    new_value = parent_node.values[mid]
                     if mid == 0:
                         parent_node.values = parent_node.values[: mid+1]
                     else:
                         parent_node.values = parent_node.values[:mid]
 
                     parent_node.keys = parent_node.keys[: mid+1]
-                    for j in parent_node.keys:
-                        j.parent = parent_node
-                    for j in new_parent_node.keys:
-                        j.parent = new_parent_node
+                    for key in parent_node.keys:
+                        key.parent = parent_node
+                    for key in new_parent_node.keys:
+                        key.parent = new_parent_node
 
-                    self._insert_in_parent(parent_node, parent_node.values[mid], new_parent_node)
+                    self._insert_in_parent(parent_node, new_value, new_parent_node)
 
     def insert(self, key, value):
         value = str(value)
@@ -123,11 +124,14 @@ class BPlusTree:
             for i in range(len(values)):
                 # If we find the value, go to the right child node;
                 # Or if the value we search is greater than all value in this node, so go to the right most child node
-                if value == values[i] or i == len(current_node.values)-1:
-                    current_node = current_node.keys[i+1]
+                if value == values[i]:
+                    current_node = current_node.keys[i + 1]
                     break
                 elif value < values[i]:  # If the value is smaller, then go to the left child node
                     current_node = current_node.keys[i]
+                    break
+                elif i == len(current_node.values) - 1:
+                    current_node = current_node.keys[i + 1]
                     break
 
         return current_node
@@ -147,11 +151,11 @@ class BPlusTree:
         if not node.is_leaf:
             for idx, item in enumerate(node.keys):
                 if item == key:
-                    del node.keys[idx]
+                    node.keys.pop(idx)
                     break
             for idx, item in enumerate(node.values):
                 if item == value:
-                    del node.values[idx]
+                    node.values.pop(idx)
                     break
 
         if node == self.root and len(node.keys) == 1:
@@ -271,14 +275,14 @@ class BPlusTree:
             if item == value:
                 if key in node.keys[idx]:
                     if len(node.keys[idx]) > 1:
-                        del node.keys[idx][node.keys[idx].index(key)]
+                        node.keys[idx].pop(node.keys[idx].index(key))
                     elif node == self.root:
-                        del node.values[idx]
-                        del node.keys[idx]
+                        node.values.pop(idx)
+                        node.keys.pop(idx)
                     else:
-                        del node.keys[idx][node.keys[idx].index(key)]
+                        node.keys[idx].pop(node.keys[idx].index(key))
                         del node.keys[idx]
-                        del node.values[node.values.index(value)]
+                        node.values.pop(node.values.index(value))
                         self._delete_entry(node, key, value)
                 else:
                     return
