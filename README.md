@@ -21,6 +21,7 @@
    - Most important of all, there are lots of complete solutions everywhere on the Internet, this is just for myself to prepare for the interview.
 5. Design Patterns:
    - Implementations 23 design patterns summarized in ***&lt;&lt;Design Patterns - Elements of Reusable Object-Oriented Software&gt;&gt;***
+   - Because there is no abstract concept(e.g. abstract class or abstract method) in Python, I use abc module to fulfill it.
 ## Purpose
 #### There are two main purposes as follows:  
 1. I just prepare the coding interview for myself.
@@ -43,7 +44,6 @@ if __name__ == '__main__':
     print(insert(array, index=1, value=10))
     print(delete(array, value=10))
 ```
-
 2. Sorting Algorithms:
 3. Algorithms:
 4. LeetCode:
@@ -57,6 +57,8 @@ if __name__ == '__main__':
 [Open Data Structures](https://opendatastructures.org/): Illustrate the detailed theories and their implementations of data structures  
 [Sorting Algorithm Wiki](https://en.wikipedia.org/wiki/Sorting_algorithm): Basic introduction of the sorting algorithm  
 [Programiz - Data Structure](https://www.programiz.com/dsa): Detailed introduce the data structures and their operations in many languages(e.g. Python, Java, ..., etc.)
+[Software Design Pattern](https://en.wikipedia.org/wiki/Software_design_pattern): Refer to its UML diagram, LePUS3 chart and class diagram.
+
 
 ## Contact
 Welcome to contact me for any further question, below is my gmail address:
