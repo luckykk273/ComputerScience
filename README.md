@@ -22,6 +22,8 @@
 5. Design Patterns:
    - Implementations 23 design patterns summarized in ***&lt;&lt;Design Patterns - Elements of Reusable Object-Oriented Software&gt;&gt;***
    - Because there is no abstract concept(e.g. abstract class or abstract method) in Python, I use abc module to fulfill it.
+   - I will demonstrate the difference between introducing design pattern before and introducing design pattern after.
+
 ## Purpose
 #### There are two main purposes as follows:  
 1. I just prepare the coding interview for myself.
