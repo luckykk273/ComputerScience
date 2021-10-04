@@ -13,16 +13,15 @@ class BinarySearchTree:
         if self.root is None:
             return ''
         else:
-            str_buff = ''
-            return self._inorder(self.root, str_buff)
+            return self._inorder(self.root)
 
-    def _inorder(self, node, buff):
+    def _inorder(self, node):
         if node is None:
-            return buff
+            return ''
 
-        left_buff = self._inorder(node.left, buff)
+        left_buff = self._inorder(node.left)
         in_buff = str(node.data) + ' '
-        right_buff = self._inorder(node.right, buff)
+        right_buff = self._inorder(node.right)
 
         return left_buff + in_buff + right_buff
 
