@@ -57,6 +57,16 @@ class RedBlackTree:
         else:
             return RedBlackTree.get_grandparent(node).right
 
+    @staticmethod
+    def get_sibling(node):
+        if node is None or node.parent is None:
+            return None
+
+        if node == node.parent.left:
+            return node.parent.right
+        else:
+            return node.parent.left
+
     def _left_rotate(self, node):
         right = node.right
         node.right = right.left
@@ -178,6 +188,119 @@ class RedBlackTree:
     def search(self, key):
         return self._search(self.root, key)
 
+    def _replace(self, node1, node2):
+        if node1.parent is None:
+            self.root = node2
+        elif node1 == node1.parent.left:
+            node1.parent.left = node2
+        else:
+            node1.parent.right = node2
+
+        node2.parent = node1.parent
+
+    def _get_minimum(self, node):
+        while node.left != self.NIL:
+            node = node.left
+
+        return node
+
+    def _fix_delete(self, node):
+        while node != self.root and node.color == 0:
+            if node == node.parent.left:
+                sibling_node = node.parent.right
+                if sibling_node.color == 1:
+                    sibling_node.color = 0
+                    node.parent.color = 1
+                    self._left_rotate(node.parent)
+                    sibling_node = node.parent.right
+
+                if sibling_node.left.color == 0 and sibling_node.right.color == 0:
+                    sibling_node.color = 1
+                    node = node.parent
+                else:
+                    if sibling_node.right.color == 0:
+                        sibling_node.left.color = 0
+                        sibling_node.color = 1
+                        self._right_rotate(sibling_node)
+                        sibling_node = node.parent.right
+
+                    sibling_node.color = node.parent.color
+                    node.parent.color = 0
+                    sibling_node.right.color = 0
+                    self._left_rotate(node.parent)
+                    node = self.root
+            else:
+                sibling_node = node.parent.left
+                if sibling_node.color == 1:
+                    sibling_node.color = 0
+                    node.parent.color = 1
+                    self._right_rotate(node.parent)
+                    sibling_node = node.parent.left
+
+                if sibling_node.left.color == 0 and sibling_node.right.color == 0:
+                    sibling_node.color = 1
+                    node = node.parent
+                else:
+                    if sibling_node.left.color == 0:
+                        sibling_node.right.color = 0
+                        sibling_node.color = 1
+                        self._left_rotate(sibling_node)
+                        sibling_node = node.parent.left
+
+                    sibling_node.color = node.parent.color
+                    node.parent.color = 0
+                    sibling_node.left.color = 0
+                    self._right_rotate(node.parent)
+                    node = self.root
+
+        node.color = 0
+
+    def _delete(self, node, key):
+        current_node = self.NIL
+        while node != self.NIL:
+            if node.data == key:
+                current_node = node
+                break
+
+            if node.data <= key:
+                node = node.right
+            else:
+                node = node.left
+
+        if current_node == self.NIL:
+            print('Cannot find the key in the RBT.')
+            return
+
+        temp = current_node
+        color = temp.color
+        if current_node.left == self.NIL:
+            replaced_node = current_node.right
+            self._replace(current_node, current_node.right)
+        elif current_node.right == self.NIL:
+            replaced_node = current_node.left
+            self._replace(current_node, current_node.left)
+        else:
+            temp = self._get_minimum(current_node.right)
+            color = temp.color
+            replaced_node = temp.right
+            if temp.parent == current_node:
+                replaced_node.parent = temp
+            else:
+                self._replace(temp, temp.right)
+                temp.right = current_node.right
+                temp.right.parent = temp
+
+            self._replace(current_node, temp)
+            temp.left = current_node.left
+            temp.left.parent = temp
+            temp.color = current_node.color
+
+        if color == 0:
+            self._fix_delete(replaced_node)
+
+    def delete(self, key):
+        self._delete(self.root, key)
+
 
 if __name__ == '__main__':
     rbt = RedBlackTree()
@@ -189,4 +312,8 @@ if __name__ == '__main__':
     rbt.insert(75)
     rbt.insert(57)
 
+    print(rbt)
+    print('=========================\n')
+
+    rbt.delete(40)
     print(rbt)
