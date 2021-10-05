@@ -1,6 +1,7 @@
 ## Usage
 
-##Proposed Order
+## Proposed Order
+#### Finished: 
 1. Array(1945)
 2. Stack(1946)
 3. Queue(-)
@@ -12,6 +13,8 @@
 8. B-Tree(1972)
 9. Red-Black Tree(1972)
 10. B+ Tree(1973)
+
+#### To be continued: 
 11. KD Tree(1975)
 12. Splay Tree(1985)
 13. Treap(1989)

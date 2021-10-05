@@ -20,7 +20,7 @@
    - Every problem will only be solved with my first thought and one of the best solutions.
    - Most important of all, there are lots of complete solutions everywhere on the Internet, this is just for myself to prepare for the interview.
 5. Design Patterns:
-   - Implementations 23 design patterns summarized in ***&lt;&lt;Design Patterns - Elements of Reusable Object-Oriented Software&gt;&gt;***
+   - Implementations 23 GoF design patterns summarized in ***&lt;&lt;Design Patterns - Elements of Reusable Object-Oriented Software&gt;&gt;***
    - Because there is no abstract concept(e.g. abstract class or abstract method) in Python, I use abc module to fulfill it.
    - I will demonstrate the difference between introducing design pattern before and introducing design pattern after.
 
