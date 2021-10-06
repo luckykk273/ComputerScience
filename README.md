@@ -26,7 +26,7 @@
    - It is difficult to illustrate some conception in dynamic typing language(e.g. Python)  
      (because there is no data type when declaring a variable), so I implement the design patterns in C++.
    - There are lots of resources on the Internet including lectures, code, blog, ..., etc.,  
-     so I won't talk a lot about basic theories or conception, 
+     so I won't talk a lot about basic theories or conception,  
      I will only say something specific in my personal opinion.
 
 ## Purpose
