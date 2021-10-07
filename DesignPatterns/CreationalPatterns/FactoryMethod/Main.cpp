@@ -28,24 +28,32 @@ int main()
 			MacButtonFactory* fac = new MacButtonFactory();
 			Button* btn = fac->CreateButton();
 			std::cout << btn->GetName() << std::endl;
+
+			delete fac, btn;
 		}
 		else if (system == "MAC" && product == "Border")
 		{
 			MacBorderFactory* fac = new MacBorderFactory();
 			Border* bdr = fac->CreateBorder();
 			std::cout << bdr->GetName() << std::endl;
+
+			delete fac, bdr;
 		}
 		else if (system == "WIN" && product == "Button")
 		{
 			WinButtonFactory* fac = new WinButtonFactory();
 			Button* btn = fac->CreateButton();
 			std::cout << btn->GetName() << std::endl;
+
+			delete fac, btn;
 		}
 		else if (system == "WIN" && product == "Border")
 		{
 			WinBorderFactory* fac = new WinBorderFactory();
 			Border* bdr = fac->CreateBorder();
 			std::cout << bdr->GetName() << std::endl;
+
+			delete fac, bdr;
 		}
 		else
 		{
@@ -99,4 +107,6 @@ int main()
 		std::cerr << e.what() << std::endl;
 		return -1;
 	}
+
+	delete btn, bdr;
 }
