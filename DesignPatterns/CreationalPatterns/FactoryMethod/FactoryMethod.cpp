@@ -1,4 +1,4 @@
-#include "../include/FactoryMethod.h"
+#include "FactoryMethod.h"
 
 const char* MacButton::GetName() { return "MacButton"; }
 const char* WinButton::GetName() { return "WinButton"; }
