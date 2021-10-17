@@ -25,9 +25,7 @@
      ***&lt;&lt;Design Patterns - Elements of Reusable Object-Oriented Software&gt;&gt;***
    - It is difficult to illustrate some conception in dynamic typing language(e.g. Python)  
      (because there is no data type when declaring a variable), so I implement the design patterns in C++.
-   - There are lots of resources on the Internet including lectures, code, blog, ..., etc.,  
-     so I won't talk a lot about basic theories or conception,  
-     I will only say something specific in my personal opinion.
+   - The examples are followed by the book and the structure of patterns will be written in the comment.
 
 ## Purpose
 #### There are two main purposes as follows:  
@@ -63,7 +61,7 @@ if __name__ == '__main__':
 [Big O cheat sheet](https://www.bigocheatsheet.com/): Contained common data structures and their complexities  
 [Open Data Structures](https://opendatastructures.org/): Illustrate the detailed theories and their implementations of data structures  
 [Sorting Algorithm Wiki](https://en.wikipedia.org/wiki/Sorting_algorithm): Basic introduction of the sorting algorithm  
-[Programiz - Data Structure](https://www.programiz.com/dsa): Detailed introduce the data structures and their operations in many languages(e.g. Python, Java, ..., etc.)
+[Programiz - Data Structure](https://www.programiz.com/dsa): Detailed introduce the data structures and their operations in many languages(e.g. Python, Java, ..., etc.)  
 [Software Design Pattern](https://en.wikipedia.org/wiki/Software_design_pattern): Refer to its UML diagram, LePUS3 chart and class diagram.
 
 
