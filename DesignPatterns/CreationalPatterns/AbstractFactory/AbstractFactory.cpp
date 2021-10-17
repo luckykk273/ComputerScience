@@ -1,14 +1,14 @@
 #include "AbstractFactory.h"
 
 
-const char* MacButton::GetName() { return "MacButton"; }
-const char* WinButton::GetName() { return "WinButton"; }
+const char* PMWindow::GetName() const { return "PMWindow"; }
+const char* MotifWindow::GetName() const { return "MotifWindow"; }
 
-const char* MacBorder::GetName() { return "MacBorder"; }
-const char* WinBorder::GetName() { return "WinBorder"; }
+const char* PMScrollBar::GetName() const { return "PMScrollBar"; }
+const char* MotifScrollBar::GetName() const { return "MotifScrollBar"; }
 
-MacButton* MacFactory::CreateButton() { return new MacButton(); }
-MacBorder* MacFactory::CreateBorder() { return new MacBorder(); }
+PMWindow* PMWidgetFactory::CreateWindow() { return new PMWindow(); }
+PMScrollBar* PMWidgetFactory::CreateScrollBar() { return new PMScrollBar(); }
 
-WinButton* WinFactory::CreateButton() { return new WinButton(); }
-WinBorder* WinFactory::CreateBorder() { return new WinBorder(); }
+MotifWindow* MotifWidgetFactory::CreateWindow() { return new MotifWindow(); }
+MotifScrollBar* MotifWidgetFactory::CreateScrollBar() { return new MotifScrollBar(); }

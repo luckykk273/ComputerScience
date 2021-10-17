@@ -7,39 +7,27 @@
 
 int main()
 {
-	AbstractFactory* fac;
-	Button* btn;
-	Border* bdr;
-		
-	std::cout << "Please choose the operation system: " << std::endl;
-	std::string system;
-	std::cin >> system;
-	try 
-	{
-		if (system == "MAC")
-		{
-			fac = new MacFactory();
-		}
-		else if (system == "WIN")
-		{
-			fac = new WinFactory();
-		}
-		else
-		{
-			throw std::invalid_argument("Only `MAC` or `WIN` provided!");
-		}
-	}
-	catch (const std::invalid_argument& e)
-	{
-		std::cerr << e.what() << std::endl;
-		return -1;
-	}
+	// Clients create widgets solely through the widget factory interface;
+	// Clients have no knowledge of the classes that implement widgets for a particular look and feel;
+	WidgetFactory* fac;  
+	Window* win;
+	ScrollBar* sb;
+	
+	// If clients want to create PM style widgets:
+	fac = new PMWidgetFactory();
+	win = fac->CreateWindow();
+	sb = fac->CreateScrollBar();
 
-	btn = fac->CreateButton();
-	bdr = fac->CreateBorder();
+	std::cout << "PM style widgets: " << std::endl;
+	std::cout << win->GetName() << ", " << sb->GetName() << std::endl;
 
-	std::cout << btn->GetName() << std::endl;
-	std::cout << bdr->GetName() << std::endl;
+	// If clients want to create Motif style widgets:
+	fac = new MotifWidgetFactory();
+	win = fac->CreateWindow();
+	sb = fac->CreateScrollBar();
 
-	delete fac, btn, bdr;
+	std::cout << "\nMotif style widgets: " << std::endl;
+	std::cout << win->GetName() << ", " << sb->GetName() << std::endl;
+
+	delete fac, win, sb;
 }

@@ -1,66 +1,67 @@
 #pragma once
 
 
-/********************************************
- * Define the two products: Button & Border *
- ********************************************/
-class Button  // Abstract button
+/*************************************************
+ * Define the two widgets: scroll bars & windows *
+ ************************************************/
+class ScrollBar  // Abstract scroll bars
 {
 public:
-	virtual const char* GetName() = 0;
+	virtual const char* GetName() const = 0;
 };
 
-class MacButton : public Button  // Concrete mac button
+class PMScrollBar : public ScrollBar  // Concrete PM scroll bars
 {
 public:
-	const char* GetName() override;
+	const char* GetName() const override;
 };
 
-class WinButton : public Button  // Concrete win button
+class MotifScrollBar : public ScrollBar  // Concrete Motif scroll bars
 {
 public:
-	const char* GetName() override;
+	const char* GetName() const override;
 };
 
-class Border  // Abstract border
+class Window  // Abstract window
 {
 public:
-	virtual const char* GetName() = 0;
+	virtual const char* GetName() const = 0;
 };
 
-class MacBorder : public Border  // Concrete mac border
+class PMWindow : public Window  // Concrete PM window
 {
 public:
-	const char* GetName() override;
+	const char* GetName() const override;
 };
 
-class WinBorder : public Border  // Concrete win border
+class MotifWindow : public Window  // Concrete Motif window
 {
 public:
-	const char* GetName() override;
+	const char* GetName() const override;
 };
 
 
 /**********************
  * Define the factory *
  **********************/
-class AbstractFactory  // Abstract factory
+class WidgetFactory  // Abstract widget factory
 {
 public:
-	virtual Button* CreateButton() = 0;
-	virtual Border* CreateBorder() = 0;
+	virtual ScrollBar* CreateScrollBar() = 0;
+	virtual Window* CreateWindow() = 0;
 };
 
-class MacFactory : public AbstractFactory  // Concrete mac factory
+class PMWidgetFactory : public WidgetFactory  // Concrete PM widget factory
 {
 public:
-	MacButton* CreateButton() override;
-	MacBorder* CreateBorder() override;
+	virtual PMScrollBar* CreateScrollBar() override;
+	virtual PMWindow* CreateWindow() override;
 };
 
-class WinFactory : public AbstractFactory  // Concrete win factory
+class MotifWidgetFactory : public WidgetFactory  // Concrete Motif widget factory
 {
 public:
-	WinButton* CreateButton() override;
-	WinBorder* CreateBorder() override;
+	virtual MotifScrollBar* CreateScrollBar() override;
+	virtual MotifWindow* CreateWindow() override;
 };
+
