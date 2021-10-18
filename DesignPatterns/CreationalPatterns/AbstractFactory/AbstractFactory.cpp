@@ -1,14 +1,22 @@
 #include "AbstractFactory.h"
 
 
-const char* PMWindow::GetName() const { return "PMWindow"; }
-const char* MotifWindow::GetName() const { return "MotifWindow"; }
+/*********************************************************
+ * Define the two parts of the computer: mouse, keyboard *
+ * Each part has two styles:             Windows, Mac    *
+ *********************************************************/
+const char* WindowsMouse::GetName() const { return "WindowsMouse"; }
+const char* MacMouse::GetName() const { return "MacMouse"; }
 
-const char* PMScrollBar::GetName() const { return "PMScrollBar"; }
-const char* MotifScrollBar::GetName() const { return "MotifScrollBar"; }
+const char* WindowsKeyboard::GetName() const { return "WindowsKeyboard"; }
+const char* MacKeyboard::GetName() const { return "MacKeyboard"; }
 
-PMWindow* PMWidgetFactory::CreateWindow() { return new PMWindow(); }
-PMScrollBar* PMWidgetFactory::CreateScrollBar() { return new PMScrollBar(); }
 
-MotifWindow* MotifWidgetFactory::CreateWindow() { return new MotifWindow(); }
-MotifScrollBar* MotifWidgetFactory::CreateScrollBar() { return new MotifScrollBar(); }
+/******************************************
+ * Define the two factories: Windows, Mac *
+ ******************************************/
+WindowsMouse* WindowsFactory::CreateMouse() const { return new WindowsMouse();  }
+WindowsKeyboard* WindowsFactory::CreateKeyboard() const { return new WindowsKeyboard(); }
+
+MacMouse* MacFactory::CreateMouse() const { return new MacMouse();  }
+MacKeyboard* MacFactory::CreateKeyboard() const { return new MacKeyboard(); }

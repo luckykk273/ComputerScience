@@ -1,67 +1,67 @@
 #pragma once
 
 
-/*************************************************
- * Define the two widgets: scroll bars & windows *
- ************************************************/
-class ScrollBar  // Abstract scroll bars
+/*********************************************************
+ * Define the two parts of the computer: mouse, keyboard *
+ * Each part has two styles:             Windows, Mac    *
+ *********************************************************/
+class Mouse  // Abstract product
 {
 public:
 	virtual const char* GetName() const = 0;
 };
 
-class PMScrollBar : public ScrollBar  // Concrete PM scroll bars
+class WindowsMouse : public Mouse  // Concrete product
 {
 public:
 	const char* GetName() const override;
 };
 
-class MotifScrollBar : public ScrollBar  // Concrete Motif scroll bars
+class MacMouse : public Mouse  // Concrete product
 {
 public:
 	const char* GetName() const override;
 };
 
-class Window  // Abstract window
+class Keyboard
 {
 public:
 	virtual const char* GetName() const = 0;
 };
 
-class PMWindow : public Window  // Concrete PM window
+class WindowsKeyboard : public Keyboard  // Concrete product
 {
 public:
 	const char* GetName() const override;
 };
 
-class MotifWindow : public Window  // Concrete Motif window
+class MacKeyboard : public Keyboard  // Concrete product
 {
 public:
 	const char* GetName() const override;
 };
 
-
-/**********************
- * Define the factory *
- **********************/
-class WidgetFactory  // Abstract widget factory
+/******************************************
+ * Define the two factories: Windows, Mac *
+ ******************************************/
+class PartFactory  // Abstract factory
 {
 public:
-	virtual ScrollBar* CreateScrollBar() = 0;
-	virtual Window* CreateWindow() = 0;
+	virtual Mouse* CreateMouse() const = 0;
+	virtual Keyboard* CreateKeyboard() const = 0;
 };
 
-class PMWidgetFactory : public WidgetFactory  // Concrete PM widget factory
+class WindowsFactory : public PartFactory  // Concrete factory
 {
 public:
-	PMScrollBar* CreateScrollBar() override;
-	PMWindow* CreateWindow() override;
+	WindowsMouse* CreateMouse() const override;
+	WindowsKeyboard* CreateKeyboard() const override;
 };
 
-class MotifWidgetFactory : public WidgetFactory  // Concrete Motif widget factory
+class MacFactory : public PartFactory  // Concrete factory
 {
 public:
-	MotifScrollBar* CreateScrollBar() override;
-	MotifWindow* CreateWindow() override;
+	MacMouse* CreateMouse() const override;
+	MacKeyboard* CreateKeyboard() const override;
 };
 

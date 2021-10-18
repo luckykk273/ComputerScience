@@ -5,27 +5,27 @@
 
 int main()
 {
-	// Clients create widgets solely through the widget factory interface;
-	// Clients have no knowledge of the classes that implement widgets for a particular look and feel;
-	WidgetFactory* fac;  
-	Window* win;
-	ScrollBar* sb;
-	
-	// If clients want to create PM style widgets:
-	fac = new PMWidgetFactory();
-	win = fac->CreateWindow();
-	sb = fac->CreateScrollBar();
+	// Clients create parts solely through the part factory interface;
+	// Clients have no knowledge of the classes that implement parts for a particular style;
+	PartFactory* fac;
+	Mouse* mouse;
+	Keyboard* kb;
 
-	std::cout << "PM style widgets: " << std::endl;
-	std::cout << win->GetName() << ", " << sb->GetName() << std::endl;
+	// If clients want to create Windows style parts:
+	fac = new WindowsFactory();
+	mouse = fac->CreateMouse();
+	kb = fac->CreateKeyboard();
 
-	// If clients want to create Motif style widgets:
-	fac = new MotifWidgetFactory();
-	win = fac->CreateWindow();
-	sb = fac->CreateScrollBar();
+	std::cout << "Windows style parts: " << std::endl;
+	std::cout << mouse->GetName() << ", " << kb->GetName() << std::endl;
 
-	std::cout << "\nMotif style widgets: " << std::endl;
-	std::cout << win->GetName() << ", " << sb->GetName() << std::endl;
+	// If clients want to create Mac style parts:
+	fac = new MacFactory();
+	mouse = fac->CreateMouse();
+	kb = fac->CreateKeyboard();
 
-	delete fac, win, sb;
+	std::cout << "\nMac style parts: " << std::endl;
+	std::cout << mouse->GetName() << ", " << kb->GetName() << std::endl;
+
+	delete fac, mouse, kb;
 }
