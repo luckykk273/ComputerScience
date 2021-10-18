@@ -54,14 +54,14 @@ public:
 class PMWidgetFactory : public WidgetFactory  // Concrete PM widget factory
 {
 public:
-	virtual PMScrollBar* CreateScrollBar() override;
-	virtual PMWindow* CreateWindow() override;
+	PMScrollBar* CreateScrollBar() override;
+	PMWindow* CreateWindow() override;
 };
 
 class MotifWidgetFactory : public WidgetFactory  // Concrete Motif widget factory
 {
 public:
-	virtual MotifScrollBar* CreateScrollBar() override;
-	virtual MotifWindow* CreateWindow() override;
+	MotifScrollBar* CreateScrollBar() override;
+	MotifWindow* CreateWindow() override;
 };
 
