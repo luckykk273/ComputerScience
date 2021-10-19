@@ -53,6 +53,8 @@ Computer* MacComputerBuilder::GetComputer()
 ComputerDirector::ComputerDirector(ComputerBuilder* cb) : m_ComputerBuilder(cb) {}
 void ComputerDirector::CreateComputer(const char* style)
 {
+	// Here we externally pass what kind of style we want(Windows or Mac) for simplfiying the code.
+	// In fact, we can also determine what kind of style we want to create internally by analyzing something like the book mentioned.
 	if (style == "Windows")  // If Windows computer is created
 	{
 		std::cout << "Windows computer starts to create..." << std::endl;
