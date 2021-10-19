@@ -31,7 +31,7 @@ void Computer::AddScreen(Screen* screen) { std::cout << screen->GetName() << " i
 void WindowsComputerBuilder::BuildComputer() { m_Computer = new Computer(); }
 void WindowsComputerBuilder::BuildMouse() { m_Computer->AddMouse(new WindowsMouse()); }
 void WindowsComputerBuilder::BuildKeyboard() { m_Computer->AddKeyboard(new WindowsKeyboard()); }
-Computer* WindowsComputerBuilder::GetComputer()
+Computer* WindowsComputerBuilder::GetComputer() const
 {
 	std::cout << "Final product: Windows computer." << std::endl;
 	return m_Computer;
@@ -41,7 +41,7 @@ void MacComputerBuilder::BuildComputer() { m_Computer = new Computer(); }
 void MacComputerBuilder::BuildMouse() { m_Computer->AddMouse(new MacMouse()); }
 void MacComputerBuilder::BuildKeyboard() { m_Computer->AddKeyboard(new MacKeyboard()); }
 void MacComputerBuilder::BuildScreen() { m_Computer->AddScreen(new MacScreen()); }
-Computer* MacComputerBuilder::GetComputer()
+Computer* MacComputerBuilder::GetComputer() const
 {
 	std::cout << "Final product: Mac computer." << std::endl;
 	return m_Computer;
@@ -77,4 +77,4 @@ void ComputerDirector::CreateComputer(const char* style)
 	}
 }
 
-Computer* ComputerDirector::GetComputer() { return m_ComputerBuilder->GetComputer(); }
+Computer* ComputerDirector::GetComputer() const { return m_ComputerBuilder->GetComputer(); }

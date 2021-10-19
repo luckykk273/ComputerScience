@@ -78,7 +78,7 @@ class ComputerBuilder  // Abstract builder
 {
 public:
 	virtual void BuildComputer() = 0;
-	virtual Computer* GetComputer() = 0;
+	virtual Computer* GetComputer() const = 0;
 
 	// The build methods are intentionally not declared pure virtual member functions,
 	// letting subclasses override only the operations they are interested in.
@@ -94,7 +94,7 @@ private:
 	Computer* m_Computer;
 public:
 	void BuildComputer() override;
-	Computer* GetComputer() override;
+	Computer* GetComputer() const override;
 
 	// Suppose Windows computer only contains mouse and keyboard;
 	void BuildMouse() override;
@@ -107,7 +107,7 @@ private:
 	Computer* m_Computer;
 public:
 	void BuildComputer() override;
-	Computer* GetComputer() override;
+	Computer* GetComputer() const override;
 
 	// Suppose Mac computer contains mouse, keyboard and screen;
 	void BuildMouse() override;
@@ -126,5 +126,5 @@ private:
 public:
 	ComputerDirector(ComputerBuilder* cb);
 	void CreateComputer(const char* style);
-	Computer* GetComputer();
+	Computer* GetComputer() const;
 };
